@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/about"
+            android:title="@string/about"
+            android:icon="@drawable/about"/>
+
+    <item
+            android:id="@+id/lections"
+            android:title="@string/lections"
+            android:icon="@drawable/lections"/>
+
+    <item
+            android:id="@+id/dictionary"
+            android:title="@string/glosary"
+            android:icon="@drawable/book"/>
+
+    <item
+            android:id="@+id/testing"
+            android:title="@string/testing"
+            android:icon="@drawable/test"/>
+
+</menu>

@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Компьютерные Сети</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lection">Лекция</string>
+    <string name="search_hint">Поиск по содержимому</string>
+    <string name="test_description">Тест на закрепление материала</string>
+    <string name="start_test">Начать Тест</string>
+    <string name="quest_count">Количество вопросов: 30</string>
+    <string name="note1">Вы выбрали</string>
+    <string name="note2">правильных ответов из</string>
+    <string name="note4">правильный ответ из</string>
+    <string name="note3">Ваш рейтинг</string>
+    <string name="result">Результаты:</string>
+    <string name="accept">Принять</string>
+    <string name="lections">Лекции</string>
+    <string name="glosary">Глоссарий</string>
+    <string name="testing">Тестирование</string>
+    <string name="exit">Выход</string>
+    <string name="exit_desc">Выйти из приложения</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="about">О программе</string>
+    <string name="app_desc">"Электронный учебник по компьютерным сетям" предназначен для студентов, которые хотят получить
+        базовые знания о принципах построения компьютерных сетей, понять особенности традиционных и перспективных
+        технологий локальных и глобальных сетей, изучить способы создания крупных составных сетей и управления такими
+        сетями. Присутствует тест для закрепления материала и глоссарий для быстрого поиска нужного термина.
+    </string>
+    <string name="developer">Разработал: Байникенов Багдат.</string>
+    <string name="search_nothing">Поиск не дал результатов.</string>
+
+    <string-array name="name_of_topics">
+        <item>Типы компьютерных сетей</item>
+        <item>Общие Принципы Построения Вычислительных Сетей</item>
+        <item>Типы серверов</item>
+        <item>Модель взаимодействия открытых систем</item>
+        <item>Базовые технологии локальных сетей</item>
+        <item>Стандарты локальных сетей</item>
+        <item>Стандартные стеки коммуникационных протоколов</item>
+        <item>Построение локальных сетей СКС</item>
+        <item>Логическая структуризация сети</item>
+        <item>Среды передачи данных</item>
+        <item>Типы среды передачи данных</item>
+        <item>Методы доступа к сети</item>
+        <item>Методы передачи данных на физическом уровне</item>
+        <item>Уплотнение информационных потоков</item>
+        <item>Протоколы канального уровня. Методы передачи канального уровня</item>
+        <item>Методы обнаружения и коррекции ошибок</item>
+        <item>Методы коммутации в телекоммуникационных сетях</item>
+        <item>Методы разделения каналов</item>
+        <item>Способы модуляции</item>
+        <item>Основные устройства, предназначенные для организации межсетевого взаимодействия</item>
+    </string-array>
+</resources>
+
+
