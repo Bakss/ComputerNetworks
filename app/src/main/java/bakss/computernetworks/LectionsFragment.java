@@ -1,25 +1,29 @@
 package bakss.computernetworks;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LectionsFragment extends Fragment {
 
     public LectionsFragment() {
     }
 
-    private List<Topics> topics = new ArrayList();
+    private ArrayList<Topics> topics = new ArrayList();
 
     ListView topicsList;
+    SearchView searchView;
     DisplayFragment displayFragment;
 
     @Override
@@ -31,7 +35,7 @@ public class LectionsFragment extends Fragment {
         // получаем элемент ListView
         topicsList = (ListView) rootView.findViewById(R.id.list_topics);
         // создаем адаптер
-        TopicsAdapter topicAdapter = new TopicsAdapter(rootView.getContext(), R.layout.list_item, topics);
+        final TopicsAdapter topicAdapter = new TopicsAdapter(rootView.getContext(),topics);
         // устанавливаем адаптер
         topicsList.setAdapter(topicAdapter);
         // слушатель выбора в списке
@@ -65,13 +69,32 @@ public class LectionsFragment extends Fragment {
         // задаем списку слушатель на выбор
         topicsList.setOnItemClickListener(itemListener);
 
+        searchView = (SearchView) rootView.findViewById(R.id.searchView);
+        // слушатель введеного текста
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                topicAdapter.filterData(query);
+                searchView.clearFocus();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                topicAdapter.filterData(newText);
+                return false;
+            }
+        });
+
         return rootView;
     }
 
+
     private void setInitialData(){
-        // заносим в массив, массив с файла arrays.xml
+        // заполняем массив массивом с файла arrays.xml
         String[] topicsName = getResources().getStringArray(R.array.name_of_topics);
-        // заносим в массив данные
+        // заполняем массив данными
         for (int i = 0; i < 20; i++){
             topics.add(new Topics (getString(R.string.lection) + " " + (i + 1),topicsName[i]));
         }

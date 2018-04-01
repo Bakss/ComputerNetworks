@@ -1,6 +1,7 @@
 package bakss.computernetworks;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,21 +29,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mainFrame = (FrameLayout) findViewById(R.id.main_frame);
-
         mainNav = (BottomNavigationView) findViewById(R.id.main_nav);
+        // создаем фрагменты
+        aboutFragment = new AboutFragment(); // фрагмент о программе
+        lectionsFragment = new LectionsFragment(); // фрагмент с лекциями
+        testingFragment = new TestingFragment(); // фрагмент с тестированием
+        glossaryFragment = new GlossaryFragment(); // фрагмент с глоссарием
 
-        aboutFragment = new AboutFragment();
-
-        lectionsFragment = new LectionsFragment();
-
-        testingFragment = new TestingFragment();
-
-        glossaryFragment = new GlossaryFragment();
-
+        // задаем фрагмент если нету сохраненных данных после уничтожения activity
         if (savedInstanceState == null) {
             setFragment(aboutFragment);
         }
-
+        // задаем фрагмент в зависимости от выбранного пункта меню
         mainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    // функция задающая фрагмент
     public void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment);
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        // диалоговое окно при нажатии на кнопку "назад"
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(getString(R.string.exit))

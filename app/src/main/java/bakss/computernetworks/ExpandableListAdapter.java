@@ -1,5 +1,6 @@
 package bakss.computernetworks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,13 +16,18 @@ import android.widget.TextView;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context _context;
     private List<String> header;
-    private HashMap<String, List<String>> child;
+    private HashMap<String, List<String>> child, childCopy;
+    private ArrayList<String> headerCopy;
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, List<String>> listChildData) {
         this._context = context;
         this.header = listDataHeader;
+        this.headerCopy = new ArrayList<>();
+        this.headerCopy.addAll(header);
         this.child = listChildData;
+        this.childCopy = new HashMap<>();
+        this.childCopy.putAll(child);
     }
 
     @Override
@@ -62,7 +68,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        // получаем позицию заголовка
+        // возвращаем заголовок
         return this.header.get(groupPosition);
     }
 
@@ -94,13 +100,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         // задаем текст заголовку
         header_text.setText(headerTitle);
 
-        // если заголовок раскрыт то меняем текст на жирный и меняем иконку
+        // если заголовок раскрыт то меняем стиль текста на жирный и меняем иконку
         if (isExpanded) {
             header_text.setTypeface(null, Typeface.BOLD);
             header_text.setCompoundDrawablesWithIntrinsicBounds(0, 0,
                     R.drawable.ic_up, 0);
         } else {
-            // если заголовок не раскрыт то меняем текст на нормальный и меняем иконку
+            // если заголовок не раскрыт то меняем стиль текста на нормальный и меняем иконку
 
             header_text.setTypeface(null, Typeface.NORMAL);
             header_text.setCompoundDrawablesWithIntrinsicBounds(0, 0,
@@ -118,6 +124,29 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+    // фильтр записей
+    public void filterData(String query){
+        query.toLowerCase();
+        // очищаем массивы
+        header.clear();
+        child.clear();
+        // если строка поиска пуста, то возвращаем записи с массивов копий
+        if (query.isEmpty()){
+            header.addAll(headerCopy);
+            child.putAll(childCopy);
+        } else {
+            // перебираем все элементы
+            for (int i = 0; i < headerCopy.size(); i++){
+                // если строка поиска содержится в заголовке, то добавляем этот элемент
+                if (headerCopy.get(i).toLowerCase().contains(query)){
+                    header.add(headerCopy.get(i));
+                    child.put(headerCopy.get(i),childCopy.get(headerCopy.get(i)));
+                }
+            }
+        }
+        // обновляем список
+        notifyDataSetChanged();
     }
 
 }

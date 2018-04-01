@@ -6,9 +6,20 @@
         android:orientation="vertical"
         tools:context=".LectionsFragment">
 
+    <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:queryHint="@string/list_search_hint"
+            android:iconifiedByDefault="false"
+            android:background="@color/colorPrimary"
+            android:queryBackground="@android:color/transparent"
+            >
+    </SearchView>
+
     <ListView
             android:id="@+id/list_topics"
-            android:layout_alignParentStart="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fadeScrollbars="false">

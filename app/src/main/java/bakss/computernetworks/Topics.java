@@ -1,8 +1,8 @@
 package bakss.computernetworks;
 
 public class Topics {
-    private String number;
-    private String name;
+    private String number;  // номер лекции
+    private String name; // название лекции
 
     public Topics(String number, String name){
         this.number = number;

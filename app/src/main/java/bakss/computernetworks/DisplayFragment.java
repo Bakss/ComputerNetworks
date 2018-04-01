@@ -29,11 +29,7 @@ public class DisplayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = rootView = inflater.inflate(R.layout.fragment_display, container, false);
-
-        toolBar = (RelativeLayout) rootView.findViewById(R.id.toolBar);
-        searchBar = (RelativeLayout) rootView.findViewById(R.id.searchBar);
-        searchBar.setVisibility(View.GONE);
-
+        // получаем ID лекции и имя файла лекции
         Bundle bundle = getArguments();
         if (bundle != null) {
             String fileName = bundle.getString("fileName");
@@ -44,12 +40,25 @@ public class DisplayFragment extends Fragment {
             }
         }
 
+        webView = (WebView) rootView.findViewById(R.id.webView);
+        // восстанавливаем состояние webView после уничтожения activity
+        if(savedInstanceState != null) {
+            webView.restoreState(savedInstanceState);
+        } else {
+            webView.loadUrl(resourceDir + fName);
+        }
+
+        toolBar = (RelativeLayout) rootView.findViewById(R.id.toolBar);
+        searchBar = (RelativeLayout) rootView.findViewById(R.id.searchBar);
+        // скрываем панель с поиском
+        searchBar.setVisibility(View.GONE);
+
         title = (TextView) rootView.findViewById(R.id.title);
+        // задаем заголовок названием лекции
         title.setText(getString(R.string.lection) + " " + (lectionID + 1));
 
-        webView = (WebView) rootView.findViewById(R.id.webView);
-        webView.loadUrl(resourceDir + fName);
         btnClose = (ImageButton) rootView.findViewById(R.id.btnClose);
+        // закрытие текущего фрагмента и возвращение на фрагмент выбора лекции
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +74,7 @@ public class DisplayFragment extends Fragment {
         });
 
         btnSearch = (ImageButton) rootView.findViewById(R.id.btnSearch);
+        // открытие панели с поиском
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,10 +88,10 @@ public class DisplayFragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if((event.getAction() == KeyEvent.ACTION_DOWN) && ((keyCode == KeyEvent.KEYCODE_ENTER))){
-                    HideKeyboard();
-                    webView.findAll(searchEdit.getText().toString());
+                    HideKeyboard(); // скрываем клавитуру
+                    webView.findAll(searchEdit.getText().toString()); // ищем введенную строку
                     try{
-                        Method m = WebView.class.getMethod("setFindIsUp", Boolean.TYPE);
+                        Method m = WebView.class.getMethod("setFindIsUp", Boolean.TYPE); // подсвечиваем найденное
                         m.invoke(webView, true);
                     }catch(Exception ignored){}
 
@@ -90,6 +100,7 @@ public class DisplayFragment extends Fragment {
             }
         });
         searchNext = (ImageButton) rootView.findViewById(R.id.searchNext);
+        // переход к следующему найденному значению
         searchNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +108,7 @@ public class DisplayFragment extends Fragment {
             }
         });
         searchPrev = (ImageButton) rootView.findViewById(R.id.searchPrev);
+        // переход к предыдущему найденному значению
         searchPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,13 +116,16 @@ public class DisplayFragment extends Fragment {
             }
         });
         matchesCount = (TextView) rootView.findViewById(R.id.matchesCount);
+        // слушатель на количество найденных записей
         webView.setFindListener(new WebView.FindListener() {
             @Override
             public void onFindResultReceived(int activeMatchOrdinal, int numberOfMatches, boolean isDoneCounting) {
                 matchesCount.setText("");
                 if (numberOfMatches != 0) {
+                    // если количество найденного больше нуля
                     matchesCount.setText((activeMatchOrdinal + 1) + " из " + numberOfMatches);
                 } else {
+                    // если нету найденного
                     searchEdit.setText("");
                     matchesCount.setText("");
                     Toast toast = Toast.makeText(getContext(),getString(R.string.search_nothing),Toast.LENGTH_SHORT);
@@ -120,6 +135,7 @@ public class DisplayFragment extends Fragment {
         });
 
         searchClose = (ImageButton) rootView.findViewById(R.id.searchClose);
+        // закрытие панели с поиском
         searchClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +151,13 @@ public class DisplayFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // сохраняем состояние WebView
+        webView.saveState(outState);
+    }
+    // скрываем клавиатуру
     private void HideKeyboard(){
         InputMethodManager inputManager = (InputMethodManager)
                 getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);

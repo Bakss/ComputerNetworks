@@ -27,8 +27,10 @@
     </string>
     <string name="developer">Разработал: Байникенов Багдат.</string>
     <string name="search_nothing">Поиск не дал результатов.</string>
+    <string name="list_search_hint">Поиск</string>
 
     <string-array name="name_of_topics">
+        <!-- Массив с названиями лекций -->
         <item>Типы компьютерных сетей</item>
         <item>Общие Принципы Построения Вычислительных Сетей</item>
         <item>Типы серверов</item>

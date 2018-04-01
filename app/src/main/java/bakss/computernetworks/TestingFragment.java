@@ -13,7 +13,6 @@ public class TestingFragment extends Fragment {
     Button startBtn;
     TestingActionFragment testingActionFragment;
 
-
     public TestingFragment() {
     }
 
@@ -25,7 +24,7 @@ public class TestingFragment extends Fragment {
                 inflater.inflate(R.layout.fragment_testing, container, false);
 
         startBtn = (Button) rootView.findViewById(R.id.startBtn);
-
+        // переход на фрагмент с тестом
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
