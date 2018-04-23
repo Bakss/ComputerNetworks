@@ -55,18 +55,18 @@ public class TopicsAdapter extends BaseAdapter {
     }
 
     // фильтр записей
-    public void filterData(String query){
+    public void filterData(String query) {
         query.toLowerCase();
         // очищаем массив
         topics.clear();
         // если строка поиска пуста, то возвращаем записи с массива копии
-        if (query.isEmpty()){
+        if (query.isEmpty()) {
             topics.addAll(topicsCopy);
         } else {
             // перебираем все лекции
-            for (Topics topic : topicsCopy){
+            for (Topics topic : topicsCopy) {
                 // если строка поиска содержится в имени лекции, то добавляем эту лекцию
-                if (topic.getName().toLowerCase().contains(query)){
+                if (topic.getName().toLowerCase().contains(query)) {
                     topics.add(topic);
                 }
             }

@@ -1,16 +1,14 @@
 package bakss.computernetworks;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
 
                     case R.id.about:
                         setFragment(aboutFragment);
@@ -70,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     // функция задающая фрагмент
     public void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -84,8 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(getString(R.string.exit))
                 .setMessage(getString(R.string.exit_desc))
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();

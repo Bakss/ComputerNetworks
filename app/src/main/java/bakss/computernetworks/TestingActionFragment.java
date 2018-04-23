@@ -3,7 +3,6 @@ package bakss.computernetworks;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +28,7 @@ public class TestingActionFragment extends Fragment {
     int current_right;
     int wrong = 0, right = 0; // счетчики правильных и неправильных ответов
     int time = 0, total_time = 30, quest = 0;
-    private String[][] AnsMatrix  = new String[VARIANTS][QUESTIONS]; // ответы
+    private String[][] AnsMatrix = new String[VARIANTS][QUESTIONS]; // ответы
     private int[] RightAnswers = new int[QUESTIONS]; // правильные ответы
     private String[] Ques = new String[QUESTIONS]; // вопросы
     private TypedArray Base;
@@ -64,7 +63,7 @@ public class TestingActionFragment extends Fragment {
                     right++; // записываем в правильные
                 }
                 // вывод статистики если тест окончен
-                if (time==total_time){
+                if (time == total_time) {
                     Stats();
                 }
                 // переходим к следующему вопросу
@@ -82,7 +81,7 @@ public class TestingActionFragment extends Fragment {
                     wrong--;
                     right++;
                 }
-                if (time == total_time){
+                if (time == total_time) {
                     Stats();
                 }
                 LoadQuestion();
@@ -100,7 +99,7 @@ public class TestingActionFragment extends Fragment {
                     wrong--;
                     right++;
                 }
-                if (time==total_time){
+                if (time == total_time) {
                     Stats();
                 }
                 LoadQuestion();
@@ -118,7 +117,7 @@ public class TestingActionFragment extends Fragment {
                     wrong--;
                     right++;
                 }
-                if (time==total_time){
+                if (time == total_time) {
                     Stats();
                 }
                 LoadQuestion();
@@ -128,24 +127,24 @@ public class TestingActionFragment extends Fragment {
         return rootView;
     }
 
-    private void LoadQuestions(){
+    private void LoadQuestions() {
         // инициализируем массив из ресурсов
         Base = getResources().obtainTypedArray(R.array.Questions);
         // обходим все вопросы
-        for (int i = 0; i < QUESTIONS; i++){
+        for (int i = 0; i < QUESTIONS; i++) {
             // заносим в массивов вопросов подстроку от первого до второго разделителя
-            Ques[i] = getSubstringBetweenDelimiters(0,1,Base.getString(i));
-            for (int j = 0; j < VARIANTS; j++){
+            Ques[i] = getSubstringBetweenDelimiters(0, 1, Base.getString(i));
+            for (int j = 0; j < VARIANTS; j++) {
                 // для каждого из вариантов ответа занесем
                 // в соответствующую ячейку двумерного массива подстроку от 1+n до 2+n разделителя
-                AnsMatrix[j][i] = getSubstringBetweenDelimiters(j + 1,j + 2,Base.getString(i));
+                AnsMatrix[j][i] = getSubstringBetweenDelimiters(j + 1, j + 2, Base.getString(i));
             }
             // заносим правильный ответ
-            RightAnswers[i]=Integer.parseInt(getSubstringBetweenDelimiters(VARIANTS + 1,VARIANTS + 2,Base.getString(i)));
+            RightAnswers[i] = Integer.parseInt(getSubstringBetweenDelimiters(VARIANTS + 1, VARIANTS + 2, Base.getString(i)));
         }
     }
 
-    private String getSubstringBetweenDelimiters(int k, int m, String str){
+    private String getSubstringBetweenDelimiters(int k, int m, String str) {
         // индексы разделителей
         int index1 = 0;
         int index2 = 0;
@@ -154,16 +153,16 @@ public class TestingActionFragment extends Fragment {
         // счетчик разделителей
         int dels = 0;
 
-        for (int i = 0; i < len; i++){
+        for (int i = 0; i < len; i++) {
             // если текущий символ является разделителем увеличиваем счетчик
-            if (str.charAt(i) == DELIMITER){
+            if (str.charAt(i) == DELIMITER) {
                 dels++;
             }
             // если счетчик совпал с аргументом функции, то присваиваем индекс
-            if (dels == k){
+            if (dels == k) {
                 index1 = i;
             }
-            if (dels == m){
+            if (dels == m) {
                 index2 = i;
             }
         }
@@ -192,19 +191,19 @@ public class TestingActionFragment extends Fragment {
 
     private void Stats() {
         // высчитываем рейтинг
-        double rating=Math.round(((double)right/((double)right+(double)wrong))*100);
+        double rating = Math.round(((double) right / ((double) right + (double) wrong)) * 100);
         // формируем строку
-        String stat="";
-        stat+=getString(R.string.note1);
-        stat+=" "+right+" ";
+        String stat = "";
+        stat += getString(R.string.note1);
+        stat += " " + right + " ";
         if (right > 1) {
             stat += getString(R.string.note2);
         } else {
             stat += getString(R.string.note4);
         }
-        stat+=" "+total_time+". ";
-        stat+=getString(R.string.note3);
-        stat+=" "+(rating+"").substring(0,(rating+"").length()-2);
+        stat += " " + total_time + ". ";
+        stat += getString(R.string.note3);
+        stat += " " + (rating + "").substring(0, (rating + "").length() - 2);
         // выводим в диалоге
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getString(R.string.result)) // заголовок диалога

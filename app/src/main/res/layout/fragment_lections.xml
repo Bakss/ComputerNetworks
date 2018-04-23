@@ -14,8 +14,7 @@
             android:queryHint="@string/list_search_hint"
             android:iconifiedByDefault="false"
             android:background="@color/colorPrimary"
-            android:queryBackground="@android:color/transparent"
-            >
+            android:queryBackground="@android:color/transparent">
     </SearchView>
 
     <ListView

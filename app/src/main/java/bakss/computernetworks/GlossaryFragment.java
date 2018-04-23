@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
 
@@ -65,7 +64,7 @@ public class GlossaryFragment extends Fragment {
 
         HashMap<String, List<String>> hashMap = new HashMap<String, List<String>>();
         // заполняем массивы
-        for (int i = 0; i < items.length; i++){
+        for (int i = 0; i < items.length; i++) {
             header.add(headers[i]);
             List<String> child = new ArrayList<String>();
             child.add(items[i]);

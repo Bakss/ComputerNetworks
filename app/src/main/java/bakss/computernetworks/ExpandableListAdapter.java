@@ -1,9 +1,5 @@
 package bakss.computernetworks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -11,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 // для раскрывающегося списка используем базовый адаптер
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -125,23 +125,24 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
     // фильтр записей
-    public void filterData(String query){
+    public void filterData(String query) {
         query.toLowerCase();
         // очищаем массивы
         header.clear();
         child.clear();
         // если строка поиска пуста, то возвращаем записи с массивов копий
-        if (query.isEmpty()){
+        if (query.isEmpty()) {
             header.addAll(headerCopy);
             child.putAll(childCopy);
         } else {
             // перебираем все элементы
-            for (int i = 0; i < headerCopy.size(); i++){
+            for (int i = 0; i < headerCopy.size(); i++) {
                 // если строка поиска содержится в заголовке, то добавляем этот элемент
-                if (headerCopy.get(i).toLowerCase().contains(query)){
+                if (headerCopy.get(i).toLowerCase().contains(query)) {
                     header.add(headerCopy.get(i));
-                    child.put(headerCopy.get(i),childCopy.get(headerCopy.get(i)));
+                    child.put(headerCopy.get(i), childCopy.get(headerCopy.get(i)));
                 }
             }
         }

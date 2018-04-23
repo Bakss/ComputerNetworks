@@ -21,14 +21,17 @@
                 android:text="@string/lection"
                 android:textSize="@dimen/text_size"
                 android:layout_marginStart="@dimen/margin_left_right"
+                android:layout_marginLeft="@dimen/margin_left_right"
                 android:layout_marginTop="@dimen/margin_top"
                 android:textColor="@color/White"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"/>
         <ImageButton
                 android:id="@+id/btnClose"
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:src="@drawable/ic_action_close"/>
         <ImageButton
@@ -36,6 +39,7 @@
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@id/btnClose"
+                android:layout_toLeftOf="@id/btnClose"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:src="@drawable/ic_action_search"
                 />
@@ -55,9 +59,13 @@
                 android:textColor="@color/White"
                 android:textColorHint="@color/Gray"
                 android:layout_marginStart="@dimen/margin_left_right"
+                android:layout_marginLeft="@dimen/margin_left_right"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_toEndOf="@+id/searchPrev"
+                android:layout_toRightOf="@+id/searchPrev"
                 android:layout_toStartOf="@+id/matchesCount"
+                android:layout_toLeftOf="@+id/matchesCount"
                 android:hint="@string/search_hint"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"/>
@@ -70,13 +78,15 @@
                 android:layout_width="wrap_content"
                 android:textColor="@color/Gray"
                 android:layout_height="@dimen/icon_height"
-                android:layout_toStartOf="@+id/searchPrev"/>
+                android:layout_toStartOf="@+id/searchPrev"
+                android:layout_toLeftOf="@+id/searchPrev"/>
 
         <ImageButton
                 android:id="@+id/searchPrev"
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@+id/searchNext"
+                android:layout_toLeftOf="@+id/searchNext"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:src="@drawable/ic_action_prev"/>
 
@@ -85,6 +95,7 @@
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@+id/searchClose"
+                android:layout_toLeftOf="@+id/searchClose"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:src="@drawable/ic_action_next"/>
 
@@ -93,6 +104,7 @@
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:src="@drawable/ic_action_close"/>
     </RelativeLayout>

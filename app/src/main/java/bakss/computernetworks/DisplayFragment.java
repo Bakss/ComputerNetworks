@@ -3,9 +3,12 @@ package bakss.computernetworks;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.*;
+import android.webkit.WebView;
 import android.widget.*;
 
 import java.lang.reflect.Method;
@@ -34,7 +37,7 @@ public class DisplayFragment extends Fragment {
         if (bundle != null) {
             String fileName = bundle.getString("fileName");
             Integer id = bundle.getInt("lectionID");
-            if (fileName != null){
+            if (fileName != null) {
                 fName = fileName;
                 lectionID = id;
             }
@@ -42,7 +45,7 @@ public class DisplayFragment extends Fragment {
 
         webView = (WebView) rootView.findViewById(R.id.webView);
         // восстанавливаем состояние webView после уничтожения activity
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             webView.restoreState(savedInstanceState);
         } else {
             webView.loadUrl(resourceDir + fName);
@@ -87,13 +90,14 @@ public class DisplayFragment extends Fragment {
         searchEdit.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if((event.getAction() == KeyEvent.ACTION_DOWN) && ((keyCode == KeyEvent.KEYCODE_ENTER))){
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && ((keyCode == KeyEvent.KEYCODE_ENTER))) {
                     HideKeyboard(); // скрываем клавитуру
                     webView.findAll(searchEdit.getText().toString()); // ищем введенную строку
-                    try{
+                    try {
                         Method m = WebView.class.getMethod("setFindIsUp", Boolean.TYPE); // подсвечиваем найденное
                         m.invoke(webView, true);
-                    }catch(Exception ignored){}
+                    } catch (Exception ignored) {
+                    }
 
                 }
                 return false;
@@ -128,7 +132,7 @@ public class DisplayFragment extends Fragment {
                     // если нету найденного
                     searchEdit.setText("");
                     matchesCount.setText("");
-                    Toast toast = Toast.makeText(getContext(),getString(R.string.search_nothing),Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getContext(), getString(R.string.search_nothing), Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
@@ -157,8 +161,9 @@ public class DisplayFragment extends Fragment {
         // сохраняем состояние WebView
         webView.saveState(outState);
     }
+
     // скрываем клавиатуру
-    private void HideKeyboard(){
+    private void HideKeyboard() {
         InputMethodManager inputManager = (InputMethodManager)
                 getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(searchEdit.getWindowToken(),

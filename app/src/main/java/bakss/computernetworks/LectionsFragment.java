@@ -1,15 +1,12 @@
 package bakss.computernetworks;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -35,7 +32,7 @@ public class LectionsFragment extends Fragment {
         // получаем элемент ListView
         topicsList = (ListView) rootView.findViewById(R.id.list_topics);
         // создаем адаптер
-        final TopicsAdapter topicAdapter = new TopicsAdapter(rootView.getContext(),topics);
+        final TopicsAdapter topicAdapter = new TopicsAdapter(rootView.getContext(), topics);
         // устанавливаем адаптер
         topicsList.setAdapter(topicAdapter);
         // слушатель выбора в списке
@@ -47,9 +44,9 @@ public class LectionsFragment extends Fragment {
                 // контейнер для передачи данных во фрагмент
                 Bundle bundle = new Bundle();
                 // добавляем в контейнер имя файла лекции
-                bundle.putString("fileName",SelectTopic((int)id));
+                bundle.putString("fileName", SelectTopic((int) id));
                 // ID для отображения номера лекции
-                bundle.putInt("lectionID",(int)id);
+                bundle.putInt("lectionID", (int) id);
                 // передаем данные во фрагмент
                 displayFragment.setArguments(bundle);
 
@@ -91,14 +88,15 @@ public class LectionsFragment extends Fragment {
     }
 
 
-    private void setInitialData(){
+    private void setInitialData() {
         // заполняем массив массивом с файла arrays.xml
         String[] topicsName = getResources().getStringArray(R.array.name_of_topics);
         // заполняем массив данными
-        for (int i = 0; i < 20; i++){
-            topics.add(new Topics (getString(R.string.lection) + " " + (i + 1),topicsName[i]));
+        for (int i = 0; i < 20; i++) {
+            topics.add(new Topics(getString(R.string.lection) + " " + (i + 1), topicsName[i]));
         }
     }
+
     // процедура выбора лекции на основе выбранного элемента в списке
     private String SelectTopic(Integer id) {
         String fileName = "";
